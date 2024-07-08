@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+struct Node* head = NULL; // Assuming head is defined globally
+void deleteEvenNodes() {
+    struct Node* curr = head;
+    struct Node* nxt;
+    if (head == NULL) {
+        printf("Empty List, Invalid deletion...\n");
+        return;
+    }
+    while (curr != NULL) {
+        nxt = curr->next;
+        if (curr->data % 2 == 0) {
+            // If node to be deleted is head node
+            if (head == curr)
+                head = curr->next;
+            // Adjust pointers for nodes other than the head
+            if (curr->next != NULL)
+                curr->next->prev = curr->prev;
+            if (curr->prev != NULL)
+                curr->prev->next = curr->next;
+            free(curr);
+        }
+        curr = nxt;
+    }
+}
+void insertAtEnd(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+    struct Node* last = head;
+    while (last->next != NULL) {
+        last = last->next;
+    }
+    last->next = newNode;
+    newNode->prev = last;
+}
+void printList() {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+int main() {
+    // Example usage of deleteEvenNodes
+    insertAtEnd(1);
+    insertAtEnd(2);
+    insertAtEnd(3);
+    insertAtEnd(4);
+    insertAtEnd(5);
+    printf("List before deletion:\n");
+    printList();
+    deleteEvenNodes();
+printf("List after deleting even nodes:\n");
+  printList();
+    return 0;
+}
