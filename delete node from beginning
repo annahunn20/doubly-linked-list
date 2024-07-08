@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+struct Node* head = NULL; // Assuming head is defined globally
+void deleteAtBeginning() {
+    struct Node* temp;
+    // Check if the list is empty
+    if (head == NULL) {
+        printf("Empty list\n");
+        return;
+    }
+    // Store the current head node in temp
+    temp = head;
+    // Update the head to the next node
+    head = head->next;
+    // If the list had more than one node, update the previous pointer of the new head
+    if (head != NULL) {
+        head->prev = NULL;
+    }
+    // Free the memory of the old head node
+free(temp);
+}
+int main() {  // Example usage of deleteAtBeginning can be added here      
+  return 0;}
