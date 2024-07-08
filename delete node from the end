@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+struct Node* head = NULL; // Assuming head is defined globally
+void deleteAtEnd() {
+    struct Node* temp;
+    // Check if the list is empty
+    if (head == NULL) {
+        printf("Empty list\n");
+        return;
+    }
+    temp = head;
+    // Traverse to the last node
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    // If the list has more than one node
+    if (temp->prev != NULL) {
+        temp->prev->next = NULL;
+    } else {
+        // If the list has only one node
+        head = NULL;
+    }
+    // Free the memory of the last node
+    free(temp);
+}
+int main() {  // Example usage of deleteAtEnd can be added here
+    return 0;}
