@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+struct Node* head = NULL; // Assuming head is defined globally
+void insertAtEnd() {
+    struct Node* last = head;
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    printf("Enter the new data: ");
+    scanf("%d", &newNode->data);    
+    newNode->next = NULL;
+    if (head == NULL) {
+        newNode->prev = NULL;
+        head = newNode;
+        return;
+    }
+    while (last->next != NULL) {
+        last = last->next;
+    }
+    last->next = newNode;
+    newNode->prev = last;
+}
+int main() {
+    // Example usage of insertAtEnd can be added here
+    insertAtEnd();
+    return 0;
+}
