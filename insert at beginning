@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+struct Node* head = NULL; // Assuming head is defined globally
+void insertAtBeginning() {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    printf("Enter the new data: ");
+    scanf("%d", &newNode->data);
+    newNode->next = head;
+    newNode->prev = NULL;
+    if (head != NULL) {
+        head->prev = newNode;
+    }
+    head = newNode;
+}
+int main() {
+    insertAtBeginning();
+    return 0;
+    }
