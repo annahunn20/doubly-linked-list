@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+struct Node* head = NULL; // Assuming head is defined globally
+void insertAtBeginning();
+void insertAtEnd();
+void insertAtAnyPos() {
+    int i = 1, pos;
+    struct Node* newNode, *curr;
+    curr = head;
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    printf("Enter the position at which it will be inserted: ");
+    scanf("%d", &pos);
+    if (pos == 1) {
+        insertAtBeginning();
+        return;
+    }
+    while (i < pos - 1 && curr != NULL) {
+        curr = curr->next;
+        i++;
+    }
+    if (curr == NULL) {
+        printf("Invalid position\n");
+        return;
+    }
+    if (curr->next == NULL) {
+        insertAtEnd();
+        return;
+    }
+    if (curr != NULL) {
+        newNode = (struct Node*)malloc(sizeof(struct Node));
+        if (newNode == NULL) {
+            printf("Memory allocation failed\n");
+            return;
+        }
+        printf("Enter the new data: ");
+        scanf("%d", &newNode->data);
+        newNode->next = curr->next;
+        newNode->prev = curr;
+        if (curr->next != NULL) {
+            curr->next->prev = newNode;
+        }
+        curr->next = newNode;
+    }
+}
+void insertAtBeginning() {
+    // Implementation for insertAtBeginning
+}
+void insertAtEnd() {
+    // Implementation for insertAtEnd
+}
+int main() {
+    // Example usage of insertAtAnyPos can be added here
+    return 0;
+}
